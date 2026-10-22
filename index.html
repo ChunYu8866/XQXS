@@ -262,6 +262,8 @@ body.busy .card,body.busy .mini{pointer-events:none;opacity:.5;}
 .kw{color:var(--code-kw);} .fn{color:var(--code-fn);} .str{color:var(--code-str);}
 .num{color:var(--code-num);} .cmt{color:var(--code-cmt);font-style:italic;} .meta{color:var(--code-meta);}
 
+.generated-disclaimer{margin:12px 0 0;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel-2);color:var(--text-2);font-size:13px;line-height:1.75;}
+.generated-disclaimer strong{font-weight:700;color:var(--text);}
 .after{margin-top:16px;animation:fadeUp .4s ease .25s both;}
 .after .lbl{font-size:13px;color:var(--text-3);margin:0 0 8px 2px;letter-spacing:.04em;}
 .after .grp+.grp{margin-top:12px;}
@@ -520,6 +522,7 @@ const now = () => { const d = new Date();
   return String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0"); };
 const ARROW = '<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
 const CHECK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const GENERATION_DISCLAIMER = "僅輔助生成策略程式碼，無任何投資、理財建議。";
 const COPY_ICON = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 011-1h9"/></svg>';
 
 function renderEmpty(){
@@ -590,7 +593,9 @@ function renderCode(bubble, s){
       "</div><pre><code>" +
       lines.map((l, i) => '<span class="ln" style="animation-delay:' + Math.round(i * per) + 'ms">' +
                           (highlight(l) || " ") + "</span>").join("") +
-    "</code></pre></div>" + afterChips(s);
+    "</code></pre></div>" +
+    '<div class="generated-disclaimer">• <strong>' + esc(GENERATION_DISCLAIMER) + "</strong></div>" +
+    afterChips(s);
   bubble.querySelector(".copy").addEventListener("click", e => copyCode(e.currentTarget, s.code));
 }
 
